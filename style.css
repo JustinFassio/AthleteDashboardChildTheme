@@ -1,0 +1,435 @@
+/*
+Theme Name: Citron Athlete Dashboard
+Theme URI: https://aiworkoutgenerator.com
+Description: A sleek, Porsche-inspired child theme for Divi
+Author: Your Name
+Author URI: https://yourwebsite.com
+Template: Divi
+Version: 2.3.0
+*/
+
+/* ==========================================================================
+   Imports
+   ========================================================================== */
+@import url("../Divi/style.css");
+@import url("variables.css");
+
+/* ==========================================================================
+   Root Variables
+   ========================================================================== */
+:root {
+    --color-primary: #ddff0e;
+    --color-primary-dark: #b8d40c;
+	--color-secondary: #f72525; /* Vivid Red */
+    --color-tertiary: #3a0ca3;
+    --color-background: #2a2d2e; /* Porsche Chalk Grey */
+    --color-background-light: #3c3f41; /* Lighter shade of Chalk Grey */
+    --color-text: #ffffff;
+    --color-text-muted: #b0b0b0;
+    --font-main: 'Roboto', sans-serif;
+    --font-heading: 'Montserrat', sans-serif;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+    --border-radius-sm: 25%;
+    --border-radius-md: 50%;
+    --border-radius-lg: 75%;
+    --transition-speed: 0.3s;
+}
+
+/* ==========================================================================
+   Global Styles
+   ========================================================================== */
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Athlete Dashboard Container
+   ========================================================================== */
+.athlete-dashboard {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--color-background);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-primary);
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+.athlete-dashboard h1,
+.athlete-dashboard h2,
+.athlete-dashboard h3,
+.athlete-dashboard h4,
+.athlete-dashboard h5,
+.athlete-dashboard h6 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.athlete-dashboard h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.athlete-dashboard h2 {
+    font-size: 2rem;
+}
+
+.athlete-dashboard h3 {
+    font-size: 1.75rem;
+}
+
+.athlete-dashboard p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+.athlete-dashboard a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+.athlete-dashboard a:hover,
+.athlete-dashboard a:focus {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Dashboard Sections and Groups
+   ========================================================================== */
+.athlete-dashboard .dashboard-section {
+    background: var(--color-background-light); /* Dark charcoal (#3c3f41) */
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: all var(--transition-speed);
+    border: 1px solid var(--color-primary-dark); /* Dark green (#b8d40c) */
+    box-shadow: var(--shadow-md);
+    position: relative;
+}
+
+.athlete-dashboard .dashboard-section:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+}
+
+.athlete-dashboard .dashboard-section.active {
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    transition: all var(--transition-speed);
+}
+
+.athlete-dashboard .dashboard-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-primary); /* Bright green (#ddff0e) */
+    border-bottom: 2px solid var(--color-primary-dark); /* Dark green (#b8d40c) */
+    padding-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+    background: var(--color-background-light); /* Dark charcoal (#3c3f41) */
+}
+
+.athlete-dashboard .dashboard-section .section-content {
+    position: relative;
+    z-index: 1;
+    background: var(--color-background-light); /* Dark charcoal (#3c3f41) */
+}
+
+.athlete-dashboard .dashboard-group {
+    background: var(--color-background); /* Dark charcoal (#3c3f41) */
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: all var(--transition-speed);
+    border: 2px solid var(--color-primary); /* Bright green (#ddff0e) */
+    box-shadow: var(--shadow-md);
+    position: relative;
+}
+
+.athlete-dashboard .dashboard-group:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+}
+
+.athlete-dashboard .dashboard-group .group-header {
+    background-color: var(--color-secondary); /* Pink (#f72585) */
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    padding: 1rem 1.5rem;
+    border-top-left-radius: var(--border-radius-md);
+    border-top-right-radius: var(--border-radius-md);
+}
+
+.athlete-dashboard .dashboard-group .group-header h2 {
+    color: var(--color-background); /* Very dark charcoal (#2a2d2e) */
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.athlete-dashboard .dashboard-group .group-content {
+    position: relative;
+    z-index: 1;
+    background: var(--color-background); /* Very dark charcoal (#2a2d2e) */
+}
+
+.athlete-dashboard .toggle-group {
+    background: none;
+    border: none;
+    color: var(--color-background); /* Very dark charcoal (#2a2d2e) */
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--transition-speed);
+}
+
+.athlete-dashboard .toggle-group:hover {
+    opacity: 0.8;
+}
+
+.athlete-dashboard .toggle-group .fa {
+    transition: transform var(--transition-speed);
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="false"] .fa-chevron-up {
+    display: none;
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="false"] .fa-chevron-down {
+    display: inline-block;
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="true"] .fa-chevron-up {
+    display: inline-block;
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="true"] .fa-chevron-down {
+    display: none;
+}
+/* ==========================================================================
+   Form Elements
+   ========================================================================== */
+.athlete-dashboard input[type="text"],
+.athlete-dashboard input[type="email"],
+.athlete-dashboard input[type="password"],
+.athlete-dashboard input[type="number"],
+.athlete-dashboard select {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-primary-dark);
+    padding: 0.75rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius-sm);
+    transition: all var(--transition-speed);
+}
+
+.athlete-dashboard input[type="text"]:focus,
+.athlete-dashboard input[type="email"]:focus,
+.athlete-dashboard input[type="password"]:focus,
+.athlete-dashboard input[type="number"]:focus,
+.athlete-dashboard select:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 2px rgba(221, 255, 14, 0.2);
+}
+
+.athlete-dashboard input[type="submit"],
+.athlete-dashboard button {
+    background: var(--color-primary);
+    color: var(--color-background);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    border-radius: var(--border-radius-sm);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.athlete-dashboard input[type="submit"]:hover,
+.athlete-dashboard button:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(221, 255, 14, 0.3);
+}
+
+/* ==========================================================================
+   Toggle Button
+   ========================================================================== */
+.athlete-dashboard .toggle-group {
+    background: none;
+    border: none;
+    color: var(--color-background);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--transition-speed);
+}
+
+.athlete-dashboard .toggle-group:hover {
+    opacity: 0.8;
+}
+
+.athlete-dashboard .toggle-group .fa {
+    transition: transform var(--transition-speed);
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="false"] .fa-chevron-up {
+    display: none;
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="false"] .fa-chevron-down {
+    display: inline-block;
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="true"] .fa-chevron-up {
+    display: inline-block;
+}
+
+.athlete-dashboard .toggle-group[aria-expanded="true"] .fa-chevron-down {
+    display: none;
+}
+
+
+/* Section Content
+   ========================================================================== */
+.athlete-dashboard .section-content {
+    display: none;
+}
+
+/* Focus States
+   ========================================================================== */
+.athlete-dashboard a:focus,
+.athlete-dashboard button:focus,
+.athlete-dashboard input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Progress Chart
+   ========================================================================== */
+#progressChart {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border: 1px solid var(--color-primary-dark);
+    box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (min-width: 768px) {
+    .athlete-dashboard {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 767px) {
+    .athlete-dashboard {
+        padding: 1rem;
+    }
+
+    .athlete-dashboard h1 {
+        font-size: 2rem;
+    }
+
+    .athlete-dashboard .dashboard-section {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .athlete-dashboard .dashboard-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ==========================================================================
+   Responsive Design for Groups
+   ========================================================================== */
+@media (max-width: 767px) {
+    .athlete-dashboard .dashboard-group {
+        padding: 1rem;
+    }
+
+    .athlete-dashboard .dashboard-group .group-header {
+        margin: -1rem -1rem 1rem -1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .athlete-dashboard .dashboard-group .group-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.dashboard-section {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ==========================================================================
+   Scrollbar Styles
+   ========================================================================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+}

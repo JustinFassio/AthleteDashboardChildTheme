@@ -1,0 +1,178 @@
+:root {
+    /* --------------------------------------------------------------------------
+       Colors
+       -------------------------------------------------------------------------- */
+    /* Primary Color: A bright, energizing yellow-green */
+    --color-primary: #ddff0e; 
+
+    /* Darker Shade of Primary Color: A deeper, more muted yellow-green */
+    --color-primary-dark: #b8d40c;
+
+    /* Secondary Color: A vivid, eye-catching red */
+    --color-secondary: #f72525;
+
+    /* Darker Shade of Secondary Color: A rich, deep magenta */
+    --color-secondary-dark: #d60e6d;
+
+    /* Tertiary Color: A bold, vibrant blue-purple */
+    --color-tertiary: #3a0ca3;
+
+    /* Background Color: A dark charcoal grey for contrast and depth */
+    --color-background: #2a2d2e;
+
+    /* Lighter Background Color: A medium charcoal grey for subtle contrast */
+    --color-background-light: #3c3f41;
+
+    /* Text Color: Pure white for high visibility and clarity */
+    --color-text: #ffffff;
+
+    /* Muted Text Color: A light grey for secondary text and less emphasis */
+    --color-text-muted: #b0b0b0;
+
+    /* Error Color: A bright, alerting orange-red for error states */
+    --color-error: #ff3d00;
+
+    /* Success Color: A fresh, vibrant green for positive feedback */
+    --color-success: #00c853;
+
+    /* --------------------------------------------------------------------------
+       Typography
+       -------------------------------------------------------------------------- */
+    --font-main: 'Roboto', sans-serif;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-size-base: 16px;
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.75rem;
+    --font-size-h4: 1.5rem;
+    --font-size-small: 0.875rem;
+    --line-height-base: 1.6;
+    --font-weight-normal: 400;
+    --font-weight-bold: 700;
+
+    /* --------------------------------------------------------------------------
+       Shadows
+       -------------------------------------------------------------------------- */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+
+    /* --------------------------------------------------------------------------
+       Border Radii
+       -------------------------------------------------------------------------- */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    /* --------------------------------------------------------------------------
+       Transitions
+       -------------------------------------------------------------------------- */
+    --transition-speed: 0.3s;
+    --transition-speed-fast: 0.15s;
+    --transition-speed-slow: 0.5s;
+
+    /* --------------------------------------------------------------------------
+       Outline Effect
+       -------------------------------------------------------------------------- */
+    --outline-width: 2px;
+    --outline-offset: 2px;
+    --outline-color: var(--color-secondary);
+    --outline-shadow-opacity: 0.2;
+
+    /* --------------------------------------------------------------------------
+       Z-index Layers
+       -------------------------------------------------------------------------- */
+    --z-index-base: 1;
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1020;
+    --z-index-fixed: 1030;
+    --z-index-modal-backdrop: 1040;
+    --z-index-modal: 1050;
+    --z-index-popover: 1060;
+    --z-index-tooltip: 1070;
+
+    /* --------------------------------------------------------------------------
+       Dashboard Layout
+       -------------------------------------------------------------------------- */
+    --dashboard-max-width: 1200px;
+    --dashboard-padding: 2rem;
+    --dashboard-padding-mobile: 1rem;
+    --dashboard-gap: 2rem;
+    --section-padding: 1.5rem;
+    --section-padding-mobile: 1rem;
+    --section-margin-bottom: 2rem;
+    --header-margin-bottom: 2rem;
+
+    /* --------------------------------------------------------------------------
+       Responsive Breakpoints
+       -------------------------------------------------------------------------- */
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+
+    /* --------------------------------------------------------------------------
+       Button Styles
+       -------------------------------------------------------------------------- */
+    --button-size: 30px;
+    --button-font-size: 1.5rem;
+    --button-padding: 0.75rem 1.5rem;
+    --button-border-radius: var(--border-radius-sm);
+
+    /* --------------------------------------------------------------------------
+       Form Elements
+       -------------------------------------------------------------------------- */
+    --input-padding: 0.75rem;
+    --input-margin-bottom: 1rem;
+    --input-border-color: var(--color-primary-dark);
+    --input-border-radius: var(--border-radius-sm);
+    --input-focus-border-color: var(--color-secondary);
+
+    /* --------------------------------------------------------------------------
+       Animations
+       -------------------------------------------------------------------------- */
+    --animation-duration: 0.3s;
+    --animation-timing-function: ease-in-out;
+
+    /* --------------------------------------------------------------------------
+       Tabs (for Exercise Progress)
+       -------------------------------------------------------------------------- */
+    --tab-padding: 10px 15px;
+    --tab-border-width: 2px;
+    --tab-font-weight: 500;
+    --tab-active-bg: var(--color-primary);
+    --tab-active-color: var(--color-background);
+
+    /* --------------------------------------------------------------------------
+       Chart Dimensions
+       -------------------------------------------------------------------------- */
+    --chart-height: 300px;
+    --chart-margin-bottom: 1.5rem;
+    --chart-aspect-ratio: 2 / 1;
+
+    /* --------------------------------------------------------------------------
+       Exercise Progress Section
+       -------------------------------------------------------------------------- */
+    --exercise-progress-padding: var(--section-padding);
+    --exercise-progress-margin-bottom: var(--section-margin-bottom);
+    --exercise-progress-border-radius: var(--border-radius-md);
+
+    /* --------------------------------------------------------------------------
+       Miscellaneous
+       -------------------------------------------------------------------------- */
+    --border-color: var(--color-primary-dark);
+    --hover-transform: translateY(-2px);
+
+    /* --------------------------------------------------------------------------
+       Section Toggle
+       -------------------------------------------------------------------------- */
+    --toggle-btn-size: 24px;
+    --toggle-btn-font-size: 1rem;
+    --section-transition-speed: 0.3s;
+
+    /* --------------------------------------------------------------------------
+       Scrolling
+       -------------------------------------------------------------------------- */
+    --scroll-margin-top: 20px;
+    --scroll-behavior: smooth;
+}
