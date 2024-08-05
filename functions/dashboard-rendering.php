@@ -123,27 +123,23 @@ function athlete_dashboard_render_all_sections() {
             </div>
         </div>
         
-        <!-- Group E: Nutrition Insights -->
-        <div class="dashboard-group collapsible-group" data-group-name="Nutrition Insights">
-            <div class="group-header">
-                <h2><?php esc_html_e('Fuel Your Fire', 'athlete-dashboard'); ?></h2>
-                <button class="toggle-group" aria-expanded="true">
-                    <span class="screen-reader-text"><?php esc_html_e('Toggle Nutrition Insights', 'athlete-dashboard'); ?></span>
-                    <span class="fa fa-chevron-up" aria-hidden="true"></span>
-                    <span class="fa fa-chevron-down" aria-hidden="true" style="display:none;"></span>
-                </button>
-            </div>
-            <div class="group-content">
-                <div class="nutrition-list-scrollable">
-                    <?php
-                    athlete_dashboard_render_section('nutrition', __('Nutrition', 'athlete-dashboard'), '[user_nutrition]', 'full-width');
-                    ?>
-                </div>
-                <?php
-                athlete_dashboard_render_section('log-meal', __('Log Meal', 'athlete-dashboard'), 'athlete_dashboard_meal_log_content', 'full-width');
-                ?>
-            </div>
-        </div>
+		<!-- Group E: Nutrition Insights -->
+		<div class="dashboard-group collapsible-group" data-group-name="Nutrition Insights">
+			<div class="group-header">
+				<h2><?php esc_html_e('Fuel Your Fire', 'athlete-dashboard'); ?></h2>
+				<button class="toggle-group" aria-expanded="true">
+					<span class="screen-reader-text"><?php esc_html_e('Toggle Nutrition Insights', 'athlete-dashboard'); ?></span>
+					<span class="fa fa-chevron-up" aria-hidden="true"></span>
+					<span class="fa fa-chevron-down" aria-hidden="true" style="display:none;"></span>
+				</button>
+			</div>
+			<div class="group-content">
+				<?php
+				athlete_dashboard_render_section('log-meal', __('Log Meal', 'athlete-dashboard'), 'athlete_dashboard_meal_log_content', 'full-width');
+				athlete_dashboard_render_section('nutrition', __('Nutrition', 'athlete-dashboard'), '[user_nutrition]', 'full-width');
+				?>
+			</div>
+		</div>
         
         <!-- Group F: Member Dashboard & Insights -->
         <div class="dashboard-group collapsible-group" data-group-name="Member Dashboard & Insights">
