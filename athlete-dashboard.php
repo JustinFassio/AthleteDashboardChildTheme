@@ -393,40 +393,54 @@ function athlete_dashboard_exercise_progress_content() {
     <?php wp_nonce_field( 'athlete_dashboard_nonce', 'exercise_progress_nonce' ); ?>
     <?php
 }
-
 /**
- * Generatemeal log content.
+ * Generate meal log content.
  */
 function athlete_dashboard_meal_log_content() {
     ?>
     <div class="meal-log-container">
-        <form id="meal-log-form" class="meal-log-form custom-form">
+        <div class="meal-log-form">
+            <form id="meal-log-form" class="custom-form">
             <div class="form-group">
-                <label for="meal_date"><?php esc_html_e('Meal Date:', 'athlete-dashboard'); ?></label>
+                <label for="meal_date"><?php esc_html_e('Date:', 'athlete-dashboard'); ?></label>
                 <input type="date" id="meal_date" name="meal_date" required>
+                <p class="field-subtext"><?php esc_html_e('', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
-                <label for="meal_time"><?php esc_html_e('Meal Time:', 'athlete-dashboard'); ?></label>
+                <label for="meal_time"><?php esc_html_e('Time:', 'athlete-dashboard'); ?></label>
                 <input type="time" id="meal_time" name="meal_time" required>
+                <p class="field-subtext"><?php esc_html_e('', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
                 <label for="meal_type"><?php esc_html_e('Meal Type:', 'athlete-dashboard'); ?></label>
                 <select id="meal_type" name="meal_type" required>
-                    <option value="breakfast"><?php esc_html_e('Breakfast', 'athlete-dashboard'); ?></option>
-                    <option value="lunch"><?php esc_html_e('Lunch', 'athlete-dashboard'); ?></option>
-                    <option value="dinner"><?php esc_html_e('Dinner', 'athlete-dashboard'); ?></option>
-                    <option value="snack"><?php esc_html_e('Snack', 'athlete-dashboard'); ?></option>
-                </select>
+					<option value="breakfast"><?php esc_html_e('Breakfast', 'athlete-dashboard'); ?></option>
+					<option value="mid_morning_snack"><?php esc_html_e('Mid-Morning Snack', 'athlete-dashboard'); ?></option>
+					<option value="brunch"><?php esc_html_e('Brunch', 'athlete-dashboard'); ?></option>
+					<option value="lunch"><?php esc_html_e('Lunch', 'athlete-dashboard'); ?></option>
+					<option value="mid_afternoon_snack"><?php esc_html_e('Mid-Afternoon Snack', 'athlete-dashboard'); ?></option>
+					<option value="dinner"><?php esc_html_e('Dinner', 'athlete-dashboard'); ?></option>
+					<option value="snack"><?php esc_html_e('Snack', 'athlete-dashboard'); ?></option>
+					<option value="supper"><?php esc_html_e('Supper', 'athlete-dashboard'); ?></option>
+					<option value="late_night_snack"><?php esc_html_e('Late-Night Snack', 'athlete-dashboard'); ?></option>
+					<option value="happy_hour"><?php esc_html_e('Happy Hour', 'athlete-dashboard'); ?></option>
+					<option value="afternoon_tea"><?php esc_html_e('Afternoon Tea', 'athlete-dashboard'); ?></option>
+					<option value="pre_workout_meal"><?php esc_html_e('Pre-Workout Meal', 'athlete-dashboard'); ?></option>
+					<option value="post_workout_meal"><?php esc_html_e('Post-Workout Meal', 'athlete-dashboard'); ?></option>
+				</select>
+                <p class="field-subtext"><?php esc_html_e('', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
                 <label for="meal_name"><?php esc_html_e('Meal Name:', 'athlete-dashboard'); ?></label>
                 <input type="text" id="meal_name" name="meal_name" required>
+                <p class="field-subtext"><?php esc_html_e('What the meal is called on the menu or at home, i.e. Spaghetti with Meatballs.', 'athlete-dashboard'); ?></p>
             </div>
             
             <!-- Protein -->
             <div class="form-group">
-                <label for="protein_type"><?php esc_html_e('Protein Type:', 'athlete-dashboard'); ?></label>
+                <label for="protein_type"><?php esc_html_e('Protein Type(s):', 'athlete-dashboard'); ?></label>
                 <input type="text" id="protein_type" name="protein_type">
+                <p class="field-subtext"><?php esc_html_e('Specify the type or types of protein in your meal, e.g., chicken, shrimp, and tofu.', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
                 <label for="protein_quantity"><?php esc_html_e('Protein Quantity:', 'athlete-dashboard'); ?></label>
@@ -436,12 +450,14 @@ function athlete_dashboard_meal_log_content() {
                     <option value="oz">oz</option>
                     <option value="pieces">pieces</option>
                 </select>
+                <p class="field-subtext"><?php esc_html_e('Enter the combined amount of protein and select the unit of measurement.', 'athlete-dashboard'); ?></p>
             </div>
 
             <!-- Fat -->
             <div class="form-group">
-                <label for="fat_type"><?php esc_html_e('Fat Type:', 'athlete-dashboard'); ?></label>
+                <label for="fat_type"><?php esc_html_e('Fat Type(s):', 'athlete-dashboard'); ?></label>
                 <input type="text" id="fat_type" name="fat_type">
+                <p class="field-subtext"><?php esc_html_e('Indicate the type of fat(s), e.g., olive oil, avocado.', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
                 <label for="fat_quantity"><?php esc_html_e('Fat Quantity:', 'athlete-dashboard'); ?></label>
@@ -451,12 +467,14 @@ function athlete_dashboard_meal_log_content() {
                     <option value="tsp">tsp</option>
                     <option value="tbsp">tbsp</option>
                 </select>
+                <p class="field-subtext"><?php esc_html_e('Specify the combined amount of fat and choose the unit of measurement.', 'athlete-dashboard'); ?></p>
             </div>
 
             <!-- Carbohydrates: Starches & Grains -->
             <div class="form-group">
-                <label for="carb_starch_type"><?php esc_html_e('Starch/Grain Type:', 'athlete-dashboard'); ?></label>
+                <label for="carb_starch_type"><?php esc_html_e('Starch/Grain Type(s):', 'athlete-dashboard'); ?></label>
                 <input type="text" id="carb_starch_type" name="carb_starch_type">
+                <p class="field-subtext"><?php esc_html_e('Enter the type of starch or grain, e.g., rice, bread.', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
                 <label for="carb_starch_quantity"><?php esc_html_e('Starch/Grain Quantity:', 'athlete-dashboard'); ?></label>
@@ -467,12 +485,14 @@ function athlete_dashboard_meal_log_content() {
                     <option value="cups">cups</option>
                     <option value="slices">slices</option>
                 </select>
+                <p class="field-subtext"><?php esc_html_e('Indicate the combined amount of starch/grain and select the unit.', 'athlete-dashboard'); ?></p>
             </div>
 
             <!-- Carbohydrates: Fruits -->
             <div class="form-group">
-                <label for="carb_fruit_type"><?php esc_html_e('Fruit Type:', 'athlete-dashboard'); ?></label>
+                <label for="carb_fruit_type"><?php esc_html_e('Fruit Type(s):', 'athlete-dashboard'); ?></label>
                 <input type="text" id="carb_fruit_type" name="carb_fruit_type">
+                <p class="field-subtext"><?php esc_html_e('Specify the type of fruit consumed, e.g., apple, banana.', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
                 <label for="carb_fruit_quantity"><?php esc_html_e('Fruit Quantity:', 'athlete-dashboard'); ?></label>
@@ -483,12 +503,14 @@ function athlete_dashboard_meal_log_content() {
                     <option value="oz">oz</option>
                     <option value="cups">cups</option>
                 </select>
+                <p class="field-subtext"><?php esc_html_e('Enter the combined amount of fruit and choose the unit of measurement.', 'athlete-dashboard'); ?></p>
             </div>
 
             <!-- Carbohydrates: Vegetables -->
             <div class="form-group">
-                <label for="carb_vegetable_type"><?php esc_html_e('Vegetable Type:', 'athlete-dashboard'); ?></label>
+                <label for="carb_vegetable_type"><?php esc_html_e('Vegetable Type(s):', 'athlete-dashboard'); ?></label>
                 <input type="text" id="carb_vegetable_type" name="carb_vegetable_type">
+                <p class="field-subtext"><?php esc_html_e('Enter the type of vegetable, e.g., broccoli, carrots.', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
                 <label for="carb_vegetable_quantity"><?php esc_html_e('Vegetable Quantity:', 'athlete-dashboard'); ?></label>
@@ -498,22 +520,28 @@ function athlete_dashboard_meal_log_content() {
                     <option value="oz">oz</option>
                     <option value="cups">cups</option>
                 </select>
+                <p class="field-subtext"><?php esc_html_e('Specify the combined amount of vegetables and select the unit.', 'athlete-dashboard'); ?></p>
             </div>
 
             <div class="form-group">
                 <label for="estimated_calories"><?php esc_html_e('Estimated Calories:', 'athlete-dashboard'); ?></label>
                 <input type="number" id="estimated_calories" name="estimated_calories" required>
+                <p class="field-subtext"><?php esc_html_e('Enter your best estimate of the total calories for this meal.', 'athlete-dashboard'); ?></p>
             </div>
             <div class="form-group">
-                <label for="meal_description"><?php esc_html_e('Meal Description:', 'athlete-dashboard'); ?></label>
+                <label for="meal_description"><?php esc_html_e('Meal Diary:', 'athlete-dashboard'); ?></label>
                 <textarea id="meal_description" name="meal_description" rows="4"></textarea>
+                <p class="field-subtext"><?php esc_html_e('Add details about how you felt before and after your meal and your thoughts on the meal.', 'athlete-dashboard'); ?></p>
             </div>
             <button type="submit" class="custom-button"><?php esc_html_e('Log Meal', 'athlete-dashboard'); ?></button>
-        </form>
-        
-        <div id="recent-meals">
-            <h3><?php esc_html_e('Recent Meals', 'athlete-dashboard'); ?></h3>
-            <!-- The meal list will be populated by JavaScript -->
+            </form>
+        </div>
+		
+        <div class="meal-list-scrollable">
+            <div id="recent-meals">
+                <h3><?php esc_html_e('Recent Meals', 'athlete-dashboard'); ?></h3>
+                <!-- The meal list will be populated by JavaScript -->
+            </div>
         </div>
     </div>
     <?php wp_nonce_field('athlete_dashboard_nonce', 'meal_log_nonce'); ?>
