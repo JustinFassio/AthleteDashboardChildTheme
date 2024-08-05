@@ -1103,15 +1103,6 @@ $(document).ready(function() {
 				});
 			});
 		}
-
-		function initializeComprehensiveDateRangeFilter() {
-			$('#comprehensive-date-range-filter').on('submit', function(e) {
-				e.preventDefault();
-				const startDate = $('#comprehensive-start-date').val();
-				const endDate = $('#comprehensive-end-date').val();
-			   AthleteCharts.updateComprehensiveBodyCompositionChart(startDate, endDate);
-			});
-		}
 		
 		function initializeWorkoutLogForm() {
 			$('#workout-log-form').on('submit', function(e) {
@@ -1139,7 +1130,7 @@ $(document).ready(function() {
 			});
 		}
 		
-		// In the AthleteForm module
+		// Initialize MealLogForm in the AthleteForm module
 		function initializeMealLogForm() {
 			$('#meal-log-form').off('submit').on('submit', function(e) {
 				e.preventDefault();
@@ -1185,7 +1176,6 @@ $(document).ready(function() {
 			initializeDeadliftProgressForm,
 			initializeExerciseProgressForm,
 			initializeComprehensiveBodyCompositionForm,
-			initializeComprehensiveDateRangeFilter,
 			initializeWorkoutLogForm,  
 			initializeMealLogForm
 		};
@@ -1898,6 +1888,8 @@ $(document).ready(function() {
 	
 /// AthleteMealLog module
 const AthleteMealLog = (function() {
+    let isSubmitting = false;
+
     function refreshRecentMeals() {
         $.ajax({
             url: CONFIG.ajaxUrl,
@@ -1999,6 +1991,7 @@ const AthleteMealLog = (function() {
     return {
         refreshRecentMeals,
         displayRecentMeals,
+        initializeMealLogForm
     };
 })();
 
@@ -2007,6 +2000,7 @@ $(document).ready(function() {
     AthleteMealLog.initializeMealLogForm();
     AthleteMealLog.refreshRecentMeals();
 });
+	
 	// AthleteWorkoutLog module
 	const AthleteWorkoutLog = (function() {
 		function refreshRecentWorkouts() {
@@ -2150,7 +2144,6 @@ function refreshRecentWorkouts() {
 		AthleteForm.initializeDeadliftProgressForm();
 		AthleteForm.initializeExerciseProgressForm();
 		AthleteForm.initializeComprehensiveBodyCompositionForm();
-		AthleteForm.initializeComprehensiveDateRangeFilter();
 		AthleteForm.initializeWorkoutLogForm();
 		AthleteForm.initializeMealLogForm();
 
