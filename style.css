@@ -433,3 +433,37 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-primary-dark);
 }
+
+/* ==========================================================================
+   Workout Modal Styles
+   ========================================================================== */
+   .workout-modal-content h1 {
+    color: var(--color-primary);
+}
+
+.workout-modal-content h2 {
+    color: var(--color-secondary);
+}
+
+.workout-modal-content h3 {
+    color: var(--color-primary-dark);
+}
+
+.workout-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    z-index: 9999;
+}
+
+.workout-lightbox-close:hover {
+    background-color: var(--color-primary-dark);
+}

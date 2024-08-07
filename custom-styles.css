@@ -466,132 +466,225 @@ body {
 /* --------------------------------------------------------------------------
    Workout Lightbox Styles
    -------------------------------------------------------------------------- */
+
+/* Overlay: Creates a semi-transparent dark background when the lightbox is active */
+.workout-lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(42, 45, 46, 0.8); /* Very dark charcoal grey with 80% opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Makes the overlay visible when active */
+.workout-lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Content Container: Styles the main content area of the lightbox */
+.workout-lightbox-content {
+    background-color: var(--color-background-light); /* Light background color defined in variables.css */
+    border: 2px solid var(--color-primary); /* Border color using the primary color */
+    border-radius: var(--border-radius-lg); /* Large border radius */
+    width: 600px;
+    max-width: 90%;
+    height: 90vh;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: var(--shadow-lg); /* Large shadow */
+    color: var(--color-text); /* Text color */
+}
+
+/* Close Button: Styles the button to close the lightbox */
+.workout-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--color-secondary); /* Secondary color for the button */
+    border: none;
+    font-size: 1rem;
+    color: var(--color-background); /* Background color for text contrast */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-sm); /* Small border radius */
+    z-index: 3;
+}
+
+.workout-lightbox-close:hover {
+    background-color: var(--color-secondary-dark); /* Darker secondary color on hover */
+}
+
+/* Header: Styles the header section of the lightbox */
+.workout-lightbox-header {
+    border-bottom: 2px solid var(--color-primary); /* Primary color for bottom border */
+    padding: 1rem 2rem;
+    position: absollute;
+    top: 0;
+    background-color: var(--color-background-light); /* Light background color */
+    z-index: 2;
+}
+
+.workout-lightbox-title {
+    color: var(--color-primary); /* Primary color for the title */
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.workout-lightbox-date {
+    color: var(--color-text-muted); /* Muted text color for the date */
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Details: Styles the details section of the workout */
+.workout-lightbox-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.workout-lightbox-detail {
+    background-color: var(--color-background); /* Background color */
+    padding: 1rem;
+    border-radius: var(--border-radius-sm); /* Small border radius */
+}
+
+.workout-lightbox-detail-label {
+    font-weight: bold;
+    color: var(--color-primary); /* Primary color for labels */
+    margin-bottom: 0.5rem;
+}
+
+.workout-lightbox-detail-value {
+    color: var(--color-text); /* Text color for values */
+}
+
+/* Notes: Styles the notes section */
+.workout-lightbox-notes {
+    background-color: var(--color-background); /* Background color */
+    padding: 1rem;
+    border-radius: var(--border-radius-sm); /* Small border radius */
+    margin-top: 1.5rem;
+}
+
+.workout-lightbox-notes-label {
+    font-weight: bold;
+    color: var(--color-primary); /* Primary color for the label */
+    margin-bottom: 0.5rem;
+}
+
+/* Print Button: Styles the print button */
+.print-workout {
+    background-color: var(--color-secondary); /* Secondary color for the button */
+    color: var(--color-background); /* Background color for text contrast */
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius-sm); /* Small border radius */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+.print-workout:hover {
+    background-color: var(--color-secondary-dark); /* Darker secondary color on hover */
+}
+
+/* Exercise Items: Styles individual exercise items */
+.exercise-item {
+    background-color: var(--color-background); /* Background color */
+    padding: 0.75rem;
+    border-radius: var(--border-radius-sm); /* Small border radius */
+    margin-bottom: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.exercise-item:hover {
+    background-color: var(--color-primary); /* Primary color on hover */
+    color: var(--color-background); /* Background color for text contrast on hover */
+}
+
+.exercise-item.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* Responsive Design: Adjusts styles for smaller screens */
+@media (max-width: 768px) {
+    .workout-lightbox-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .workout-lightbox-details {
+        grid-template-columns: 1fr;
+    }
+
+    .workout-lightbox-title {
+        font-size: 1.5rem;
+    }
+
+    .print-workout {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ensure consistency with modal styles */
 .workout-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: var(--z-index-modal);
+    z-index: 9999;
 }
 
 .full-workout {
-    background-color: var(--color-background);
-    color: var(--color-text);
-    width: 90%;
-    max-width: var(--dashboard-max-width);
-    height: 90%;
-    padding: var(--dashboard-padding);
-    border-radius: var(--border-radius-lg);
+    background: var(--color-background-light); /* Light background color */
+    padding: 2rem;
+    max-width: 80%;
+    max-height: 80%;
     overflow-y: auto;
-    box-shadow: var(--shadow-lg);
+    border-radius: var(--border-radius-lg); /* Large border radius */
+    position: relative;
 }
 
-.full-workout h2 {
-    color: var(--color-primary);
-    font-family: var(--font-heading);
-    font-size: var(--font-size-h2);
-    margin-bottom: var(--header-margin-bottom);
-}
-
-.full-workout [contenteditable="true"] {
-    padding: 0.5rem;
-    background-color: var(--color-background-light);
-    border: 1px solid var(--color-primary-dark);
-    border-radius: var(--border-radius-sm);
-    transition: all var(--transition-speed);
-}
-
-.full-workout [contenteditable="true"]:hover,
-.full-workout [contenteditable="true"]:focus {
-    outline: none;
-    border-color: var(--color-secondary);
-    box-shadow: 0 0 0 2px rgba(247, 37, 133, 0.2);
-}
-
-.full-workout .workout-content {
-    margin-bottom: var(--section-margin-bottom);
-}
-
-.full-workout .exercise-list {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.full-workout .exercise-item {
-    background-color: var(--color-background-light);
-    padding: var(--section-padding);
-    margin-bottom: 1rem;
-    border-radius: var(--border-radius-sm);
-    border: 1px solid var(--color-primary-dark);
-}
-
-.full-workout .exercise-item strong {
-    color: var(--color-secondary);
-}
-
-.full-workout .demo-link {
-    color: var(--color-primary);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-.full-workout .demo-link:hover {
-    color: var(--color-secondary);
-    text-decoration: underline;
-}
-
-.full-workout .workout-notes {
-    margin-top: var(--section-margin-bottom);
-}
-
-.full-workout button {
-    background: linear-gradient(145deg, var(--color-primary), var(--color-primary-dark));
-    color: var(--color-background);
-    padding: 12px 24px;
+#close-workout {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--color-secondary); /* Secondary color for the button */
+    color: var(--color-background); /* Background color for text contrast */
     border: none;
-    border-radius: var(--border-radius-sm);
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+    border-radius: var(--border-radius-sm); /* Small border radius */
     cursor: pointer;
-    transition: all var(--transition-speed);
-    box-shadow: var(--shadow-sm);
-    margin-top: var(--section-margin-bottom);
-    margin-right: 1rem;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-.full-workout button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.full-workout button:active {
-    transform: translateY(1px);
-    box-shadow: var(--shadow-sm);
-}
-
-.full-workout #close-workout {
-    background: linear-gradient(145deg, var(--color-secondary), var(--color-secondary-dark));
-}
-
-@media (max-width: 768px) {
-    .full-workout {
-        width: 95%;
-        height: 95%;
-        padding: var(--dashboard-padding-mobile);
-    }
-
-    .full-workout button {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
+#close-workout:hover {
+    background-color: var(--color-secondary-dark); /* Darker secondary color on hover */
 }
 
 /* --------------------------------------------------------------------------

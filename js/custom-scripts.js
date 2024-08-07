@@ -1181,14 +1181,13 @@ $(document).ready(function() {
 		};
 	})();
 
-		//Athlete Workout Module	
 	const AthleteWorkoutJourney = (function() {
 		// Private variables
 		let config = {
 			ajaxUrl: athleteDashboard.ajax_url,
 			nonce: athleteDashboard.nonce
 		};
-
+	
 		// Initialize scrolling functionality
 		function initializeScrolling() {
 			const scrollContainer = document.querySelector('.workout-list-scrollable');
@@ -1196,7 +1195,7 @@ $(document).ready(function() {
 				scrollContainer.addEventListener('scroll', handleScroll);
 			}
 		}
-
+	
 		// Handle scroll events (placeholder for future infinite scroll)
 		function handleScroll() {
 			// Implement infinite scrolling or load more functionality here
@@ -1205,10 +1204,10 @@ $(document).ready(function() {
 			//     loadMoreWorkouts();
 			// }
 		}
-
+	
 		// Refresh workouts list
 		function refreshWorkouts() {
-			$.ajax({
+			jQuery.ajax({
 				url: config.ajaxUrl,
 				type: 'POST',
 				data: {
@@ -1217,7 +1216,7 @@ $(document).ready(function() {
 				},
 				success: function(response) {
 					if (response.success) {
-						$('.workout-list-scrollable').html(response.data.html);
+						jQuery('.workout-list-scrollable').html(response.data.html);
 					} else {
 						console.error('Error refreshing workouts:', response.data.message);
 					}
@@ -1227,10 +1226,10 @@ $(document).ready(function() {
 				}
 			});
 		}
-
+	
 		// Update existing workout (to be implemented)
 		function updateWorkout(workoutId, updatedData) {
-			$.ajax({
+			jQuery.ajax({
 				url: config.ajaxUrl,
 				type: 'POST',
 				data: {
@@ -1252,10 +1251,10 @@ $(document).ready(function() {
 				}
 			});
 		}
-
+	
 		// Log new workout
 		function logWorkout(workoutData) {
-			$.ajax({
+			jQuery.ajax({
 				url: config.ajaxUrl,
 				type: 'POST',
 				data: {
@@ -1276,10 +1275,10 @@ $(document).ready(function() {
 				}
 			});
 		}
-
+	
 		// Open workout modal
 		function openWorkoutModal(workoutId) {
-			$.ajax({
+			jQuery.ajax({
 				url: config.ajaxUrl,
 				type: 'POST',
 				data: {
@@ -1299,67 +1298,174 @@ $(document).ready(function() {
 				}
 			});
 		}
+	
 		// Open Current Workout in Lightbox	
-			function showModal(workoutContent) {
-				var modal = $('<div class="workout-modal"></div>');
-				modal.html(workoutContent);
-				$('body').append(modal);
-
-				// Event listener for the Close Workout button
-				$(document).on('click', '#close-workout', function() {
-					modal.remove();
-				});
-
-				// Add print button
-				var printButton = $('<button class="print-workout">Print Workout</button>');
-				modal.append(printButton);
-
-				printButton.on('click', function() {
-					window.print();
-				});
-
-				// Add exercise completion toggling
-				modal.on('click', '.exercise-item', function() {
-					$(this).toggleClass('completed');
-				});
-			}	
-
-			// Initialize event listeners
-			function initializeEventListeners() {
-				// Example: Listen for "Update Workout" button clicks
-				$(document).on('click', '.update-workout-btn', function() {
-					const workoutId = $(this).data('workout-id');
-					const updatedData = getUpdatedWorkoutData(workoutId); // Implement this function
-					updateWorkout(workoutId, updatedData);
-				});
-
-				// Event listener for opening workout modal
-				$(document).on('click', '.open-workout', function() {
-					var workoutId = $(this).data('workout-id');
-					openWorkoutModal(workoutId);
-				});
-
-				// Example: Listen for "Log Workout" form submission
-				$('#log-workout-form').on('submit', function(e) {
-					e.preventDefault();
-					const workoutData = $(this).serialize();
-					logWorkout(workoutData);
-				});
-			}
-
-			// Public methods
-			return {
-				init: function() {
-					initializeScrolling();
-					initializeEventListeners();
-					// Other initialization code...
-				},
-				refreshWorkouts: refreshWorkouts,
-				updateWorkout: updateWorkout,
-				logWorkout: logWorkout,
-				openWorkoutModal: openWorkoutModal // Expose this method if needed externally
-			};
-		})();
+		function showModal(workoutContent) {
+			var modal = $('<div class="workout-modal"></div>');
+			modal.html(workoutContent);
+			$('body').append(modal);
+		
+			// Event listener for the Close Workout button
+			$(document).on('click', '#close-workout', function() {
+				modal.remove();
+			});
+		
+			// Ensure the close button is visible
+			$('#close-workout').css('display', 'block');
+		
+			// Add print button
+			var printButton = jQuery('<button class="print-workout">Print Workout</button>');
+			modal.append(printButton);
+		
+			printButton.on('click', function() {
+				// Create a new window for printing
+				var printWindow = window.open('', '_blank');
+				var printContent = modal.find('.full-workout').clone();
+				
+				// Remove elements that shouldn't be printed
+				printContent.find('#close-workout, .print-workout').remove();
+				
+				// Write the content to the new window
+				printWindow.document.write('<html><head><title>Print Workout</title>');
+				printWindow.document.write('<style>');
+				printWindow.document.write(`
+					body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+					h2 { color: #2c3e50; }
+					.exercise-item { margin-bottom: 10px; }
+					@media print {
+						body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+						.exercise-item { page-break-inside: avoid; }
+					}
+				`);
+				printWindow.document.write('</style>');
+				printWindow.document.write('</head><body>');
+				printWindow.document.write(printContent.html());
+				printWindow.document.write('</body></html>');
+				
+				printWindow.document.close();
+				printWindow.focus();
+				
+				// Print after a short delay to ensure styles are applied
+				setTimeout(function() {
+					printWindow.print();
+					printWindow.close();
+				}, 250);
+			});
+	
+			// Add exercise completion toggling
+			modal.on('click', '.exercise-item', function() {
+				jQuery(this).toggleClass('completed');
+			});
+	
+			// Apply CSS styles to the modal
+			modal.css({
+				'position': 'fixed',
+				'top': '0',
+				'left': '0',
+				'width': '100%',
+				'height': '100%',
+				'background-color': 'rgba(0, 0, 0, 0.8)',
+				'display': 'flex',
+				'justify-content': 'center',
+				'align-items': 'center',
+				'z-index': '9999'
+			});
+	
+			// Style the modal content
+			var modalContent = modal.find('.full-workout');
+			modalContent.css({
+				'background-color': 'var(--color-background)',
+				'color': 'var(--color-text)',
+				'padding': '2rem',
+				'border-radius': 'var(--border-radius-lg)',
+				'max-width': '80%',
+				'max-height': '80%',
+				'overflow-y': 'auto',
+				'box-shadow': 'var(--shadow-lg)'
+			});
+	
+			// Style the close button
+			modal.find('#close-workout').css({
+				'position': 'absolute',
+				'top': '1rem',
+				'right': '1rem',
+				'background-color': 'var(--color-primary)',
+				'color': 'var(--color-background)',
+				'border': 'none',
+				'padding': '0.5rem 1rem',
+				'border-radius': 'var(--border-radius-sm)',
+				'cursor': 'pointer',
+				'font-size': '1.5rem',
+				'line-height': '1',
+				'z-index': '9999'
+			});
+	
+			// Style the print button
+			printButton.css({
+				'background-color': 'var(--color-secondary)',
+				'color': 'var(--color-background)',
+				'border': 'none',
+				'padding': '0.5rem 1rem',
+				'border-radius': 'var(--border-radius-sm)',
+				'cursor': 'pointer',
+				'margin-top': '1rem'
+			});
+	
+			// Style the exercise items
+			modal.find('.exercise-item').css({
+				'padding': '0.5rem',
+				'margin-bottom': '0.5rem',
+				'background-color': 'var(--color-background-light)',
+				'border-radius': 'var(--border-radius-sm)',
+				'cursor': 'pointer'
+			});
+	
+			// Style for completed exercises
+			modal.find('.exercise-item.completed').css({
+				'text-decoration': 'line-through',
+				'opacity': '0.7'
+			});
+		
+			// Add the workout-modal-content class to the modal content
+			modalContent.addClass('workout-modal-content');
+		}
+	
+		// Initialize event listeners
+		function initializeEventListeners() {
+			// Example: Listen for "Update Workout" button clicks
+			jQuery(document).on('click', '.update-workout-btn', function() {
+				const workoutId = jQuery(this).data('workout-id');
+				const updatedData = getUpdatedWorkoutData(workoutId); // Implement this function
+				updateWorkout(workoutId, updatedData);
+			});
+	
+			// Event listener for opening workout modal
+			jQuery(document).on('click', '.open-workout', function() {
+				var workoutId = jQuery(this).data('workout-id');
+				openWorkoutModal(workoutId);
+			});
+	
+			// Example: Listen for "Log Workout" form submission
+			jQuery('#log-workout-form').on('submit', function(e) {
+				e.preventDefault();
+				const workoutData = jQuery(this).serialize();
+				logWorkout(workoutData);
+			});
+		}
+	
+		// Public methods
+		return {
+			init: function() {
+				initializeScrolling();
+				initializeEventListeners();
+				// Other initialization code...
+			},
+			refreshWorkouts: refreshWorkouts,
+			updateWorkout: updateWorkout,
+			logWorkout: logWorkout,
+			openWorkoutModal: openWorkoutModal // Expose this method if needed externally
+		};
+	})();
 
 	
     // AthleteProfile module
