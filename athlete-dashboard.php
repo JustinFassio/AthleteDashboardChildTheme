@@ -7,6 +7,14 @@
 
 get_header();
 
+/**
+ * Template Name: Athlete Dashboard
+ *
+ * @package AthleteDashboard
+ */
+
+get_header();
+
 if ( is_user_logged_in() ) :
     $current_user = wp_get_current_user();
     ?>
@@ -15,6 +23,40 @@ if ( is_user_logged_in() ) :
         <div class="athlete-dashboard">
             <?php echo athlete_dashboard_render_all_sections(); ?>
         </div>
+
+        <!-- START: Workout Lightbox -->
+        <div id="workout-lightbox" class="workout-lightbox-overlay">
+            <div class="workout-lightbox-content">
+                <div class="modal-button-container">
+                    <button class="print-workout">Print Workout</button>
+                    <button id="close-workout" class="workout-lightbox-close">Close Workout</button>
+                </div>
+                <div class="workout-lightbox-header">
+                    <h2 class="workout-lightbox-title"></h2>
+                    <p class="workout-lightbox-date"></p>
+                </div>
+                <div class="workout-lightbox-details">
+                    <div class="workout-lightbox-detail">
+                        <p class="workout-lightbox-detail-label"><?php esc_html_e('Duration', 'athlete-dashboard'); ?></p>
+                        <p class="workout-lightbox-detail-value" id="workout-lightbox-duration"></p>
+                    </div>
+                    <div class="workout-lightbox-detail">
+                        <p class="workout-lightbox-detail-label"><?php esc_html_e('Type', 'athlete-dashboard'); ?></p>
+                        <p class="workout-lightbox-detail-value" id="workout-lightbox-type"></p>
+                    </div>
+                    <div class="workout-lightbox-detail">
+                        <p class="workout-lightbox-detail-label"><?php esc_html_e('Intensity', 'athlete-dashboard'); ?></p>
+                        <p class="workout-lightbox-detail-value" id="workout-lightbox-intensity"></p>
+                    </div>
+                </div>
+                <div class="workout-lightbox-notes">
+                    <p class="workout-lightbox-notes-label"><?php esc_html_e('Notes', 'athlete-dashboard'); ?></p>
+                    <p id="workout-lightbox-notes"></p>
+                </div>
+            </div>
+        </div>
+        <!-- END: Workout Lightbox -->
+
     </div>
     <?php
 else :

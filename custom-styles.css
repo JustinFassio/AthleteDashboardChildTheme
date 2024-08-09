@@ -470,21 +470,16 @@ body {
 /* Overlay: Creates a semi-transparent dark background when the lightbox is active */
 .workout-lightbox-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(42, 45, 46, 0.8); /* Very dark charcoal grey with 80% opacity */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    inset: 0;
+    background-color: rgba(42, 45, 46, 0.8);
+    display: grid;
+    place-items: center;
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Makes the overlay visible when active */
 .workout-lightbox-overlay.active {
     opacity: 1;
     visibility: visible;
@@ -492,58 +487,119 @@ body {
 
 /* Content Container: Styles the main content area of the lightbox */
 .workout-lightbox-content {
-    background-color: var(--color-background-light); /* Light background color defined in variables.css */
-    border: 2px solid var(--color-primary); /* Border color using the primary color */
-    border-radius: var(--border-radius-lg); /* Large border radius */
-    width: 600px;
-    max-width: 90%;
-    height: 90vh;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
     position: relative;
-    box-shadow: var(--shadow-lg); /* Large shadow */
-    color: var(--color-text); /* Text color */
 }
 
-/* Close Button: Styles the button to close the lightbox */
-.workout-lightbox-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--color-secondary); /* Secondary color for the button */
-    border: none;
-    font-size: 1rem;
-    color: var(--color-background); /* Background color for text contrast */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-sm); /* Small border radius */
-    z-index: 3;
-}
-
-.workout-lightbox-close:hover {
-    background-color: var(--color-secondary-dark); /* Darker secondary color on hover */
-}
-
-/* Header: Styles the header section of the lightbox */
 .workout-lightbox-header {
-    border-bottom: 2px solid var(--color-primary); /* Primary color for bottom border */
-    padding: 1rem 2rem;
-    position: absollute;
-    top: 0;
-    background-color: var(--color-background-light); /* Light background color */
-    z-index: 2;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .workout-lightbox-title {
-    color: var(--color-primary); /* Primary color for the title */
+    color: var(--color-secondary);
     margin: 0;
     font-size: 1.8rem;
 }
 
 .workout-lightbox-date {
-    color: var(--color-text-muted); /* Muted text color for the date */
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.workout-lightbox-subtitle {
+    color: var(--color-primary-dark);
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.workout-lightbox-notes {
+    background-color: var(--color-background-light);
+    padding: 1rem;
+    border-radius: var(--border-radius-sm);
+    margin-top: 1.5rem;
+}
+
+/* Button Container: Styles the container for the print and close buttons */
+.modal-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-background);
+    padding: 1rem 0;
+    z-index: 1000;
+}
+
+/* Common Button Styles */
+.workout-lightbox-close,
+.print-workout {
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Close Button: Styles the button to close the lightbox */
+.workout-lightbox-close {
+    background-color: var(--color-secondary);
+    color: var(--color-background);
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.print-workout:hover,
+.workout-lightbox-close:hover {
+    opacity: 0.8;
+}
+
+/* Print Button: Styles the print button */
+.print-workout {
+    background-color: var(--color-secondary);
+    color: var(--color-background);
+    min-width: 120px;
+}
+
+.print-workout:hover {
+    background-color: var(--color-secondary-dark);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Header: Styles the header section of the lightbox */
+.workout-lightbox-header {
+    border-bottom: 2px solid var(--color-primary);
+    padding: 1rem 2rem;
+    background-color: var(--color-background);
+}
+
+.workout-lightbox-title {
+    color: var(--color-primary);
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.workout-lightbox-date {
+    color: var(--color-text-muted);
     font-size: 0.9rem;
     margin-top: 0.5rem;
 }
@@ -557,71 +613,96 @@ body {
 }
 
 .workout-lightbox-detail {
-    background-color: var(--color-background); /* Background color */
+    background-color: var(--color-background);
     padding: 1rem;
-    border-radius: var(--border-radius-sm); /* Small border radius */
+    border-radius: var(--border-radius-sm);
 }
 
 .workout-lightbox-detail-label {
     font-weight: bold;
-    color: var(--color-primary); /* Primary color for labels */
+    color: var(--color-primary);
     margin-bottom: 0.5rem;
 }
 
 .workout-lightbox-detail-value {
-    color: var(--color-text); /* Text color for values */
+    color: var(--color-text);
+}
+
+/* Header Font Colors */
+.workout-lightbox-content h1,
+.workout-modal-content h1 {
+    color: var(--color-primary);
+}
+
+.workout-lightbox-content h2,
+.workout-modal-content h2,
+.workout-lightbox-title {
+    color: var(--color-secondary);
+}
+
+.workout-lightbox-content h3,
+.workout-modal-content h3 {
+    color: var(--color-primary-dark);
 }
 
 /* Notes: Styles the notes section */
 .workout-lightbox-notes {
-    background-color: var(--color-background); /* Background color */
+    background-color: var(--color-background);
     padding: 1rem;
-    border-radius: var(--border-radius-sm); /* Small border radius */
+    border-radius: var(--border-radius-sm);
     margin-top: 1.5rem;
 }
 
 .workout-lightbox-notes-label {
     font-weight: bold;
-    color: var(--color-primary); /* Primary color for the label */
+    color: var(--color-primary);
     margin-bottom: 0.5rem;
-}
-
-/* Print Button: Styles the print button */
-.print-workout {
-    background-color: var(--color-secondary); /* Secondary color for the button */
-    color: var(--color-background); /* Background color for text contrast */
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius-sm); /* Small border radius */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    margin-top: 1rem;
-    display: inline-block;
-}
-
-.print-workout:hover {
-    background-color: var(--color-secondary-dark); /* Darker secondary color on hover */
 }
 
 /* Exercise Items: Styles individual exercise items */
 .exercise-item {
-    background-color: var(--color-background); /* Background color */
+    background-color: var(--color-background-light);
     padding: 0.75rem;
-    border-radius: var(--border-radius-sm); /* Small border radius */
+    border-radius: var(--border-radius-sm);
     margin-bottom: 0.5rem;
     transition: background-color 0.3s ease, color 0.3s ease;
     cursor: pointer;
 }
 
 .exercise-item:hover {
-    background-color: var(--color-primary); /* Primary color on hover */
-    color: var(--color-background); /* Background color for text contrast on hover */
+    background-color: var(--color-primary);
+    color: var(--color-background);
 }
 
 .exercise-item.completed {
     text-decoration: line-through;
     opacity: 0.7;
+}
+
+/* Ensure consistency with modal styles */
+.workout-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.workout-modal-content {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    position: relative;
 }
 
 /* Responsive Design: Adjusts styles for smaller screens */
@@ -639,53 +720,35 @@ body {
         font-size: 1.5rem;
     }
 
-    .print-workout {
-        width: 100%;
-        text-align: center;
+    .modal-button-container {
+        padding: 0.5rem;
     }
-}
 
-/* Ensure consistency with modal styles */
-.workout-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.full-workout {
-    background: var(--color-background-light); /* Light background color */
-    padding: 2rem;
-    max-width: 80%;
-    max-height: 80%;
-    overflow-y: auto;
-    border-radius: var(--border-radius-lg); /* Large border radius */
-    position: relative;
-}
-
-#close-workout {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    .print-workout,
+.workout-lightbox-close {
     padding: 0.5rem 1rem;
-    background: var(--color-secondary); /* Secondary color for the button */
-    color: var(--color-background); /* Background color for text contrast */
     border: none;
-    border-radius: var(--border-radius-sm); /* Small border radius */
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
-    font-size: 1rem;
+    font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
-#close-workout:hover {
-    background-color: var(--color-secondary-dark); /* Darker secondary color on hover */
+.print-workout {
+    background-color: var(--color-primary);
+    color: var(--color-background);
 }
+}
+
+/* Additional comments for learners:
+   - CSS variables (e.g., var(--color-background)) are used to maintain a consistent color scheme across the application.
+   - The 'transition' property is used to create smooth animations when element properties change.
+   - 'z-index' is used to control the stacking order of elements. Higher values appear on top.
+   - Media queries (@media) are used to apply different styles based on screen size, enabling responsive design.
+   - Flexbox (display: flex) is a powerful layout tool for creating flexible, responsive layouts.
+   - The 'cursor: pointer' property is used to indicate interactive elements to the user.
+   - Using rgba() for background colors allows for transparency, which is useful for overlays.
+*/
 
 /* --------------------------------------------------------------------------
 Exercise Progress Styles
@@ -868,71 +931,6 @@ padding: var(--section-padding, 1.5rem);
 padding-right: 10px;
 }
 
-/* --------------------------------------------------------------------------
-Workout Section Styles
--------------------------------------------------------------------------- */
-.workout-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.full-workout {
-    background: #fff;
-    padding: 20px;
-    max-width: 80%;
-    max-height: 80%;
-    overflow-y: auto;
-    border-radius: 5px;
-}
-
-.exercise-item {
-    cursor: pointer;
-    padding: 5px;
-    margin-bottom: 5px;
-}
-
-.exercise-item.completed {
-    text-decoration: line-through;
-    opacity: 0.6;
-}
-
-.close-modal, .print-workout {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    background: #f72585;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.print-workout {
-    right: 80px;
-}
-
-@media print {
-    body * {
-        visibility: hidden;
-    }
-    .full-workout, .full-workout * {
-        visibility: visible;
-    }
-    .full-workout {
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
-}
 /* --------------------------------------------------------------------------
 Account Details Styles
 -------------------------------------------------------------------------- */
@@ -2014,70 +2012,71 @@ background-color: var(--color-primary-dark);
 Responsive Design
 -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-.athlete-dashboard {
-padding: var(--dashboard-padding-mobile);
-}
-.dashboard-section {
-    padding: var(--section-padding-mobile);
-}
+    .athlete-dashboard {
+        padding: var(--dashboard-padding-mobile);
+    }
+    .dashboard-section {
+        padding: var(--section-padding-mobile);
+    }
 
-.athlete-dashboard h1 { font-size: calc(var(--font-size-h1) * 0.8); }
-.athlete-dashboard h2 { font-size: calc(var(--font-size-h2) * 0.8); }
+    .athlete-dashboard h1 { font-size: calc(var(--font-size-h1) * 0.8); }
+    .athlete-dashboard h2 { font-size: calc(var(--font-size-h2) * 0.8); }
 
-.user-profile {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
+    .user-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 
-.profile-picture {
-    margin-bottom: 1rem;
-}
+    .profile-picture {
+        margin-bottom: 1rem;
+    }
 
-.profile-actions {
-    flex-direction: column;
-}
+    .profile-actions {
+        flex-direction: column;
+    }
 
-.profile-actions button,
-.profile-actions .custom-button {
-    width: 100%;
-    margin-bottom: 0.5rem;
-}
+    .profile-actions button,
+    .profile-actions .custom-button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
 
-#comprehensive-body-composition .body-composition-calculator,
-#comprehensive-body-composition .body-composition-form {
-    width: 100%;
-    margin-bottom: 1rem;
-}
+    #comprehensive-body-composition .body-composition-calculator,
+    #comprehensive-body-composition .body-composition-form {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 
-#change-avatar {
-    width: auto;
-    padding: 10px 20px;
-    font-size: 12px;
-}
+    #change-avatar {
+        width: auto;
+        padding: 10px 20px;
+        font-size: 12px;
+    }
 
-.group-header {
-    flex-direction: column;
-    align-items: flex-start;
-}
+    .group-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.toggle-group {
-    margin-left: 0;
-    margin-top: 0.5rem;
-}
+    .toggle-group {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
 
-.messenger-container {
-    flex-direction: column;
-    height: 80vh;
-}
+    .messenger-container {
+        flex-direction: column;
+        height: 80vh;
+    }
 
-.conversation-list,
-.active-conversation {
-    width: 100%;
-}
+    .conversation-list,
+    .active-conversation {
+        width: 100%;
+    }
 
-.conversation-list {
-    max-height: 30%;
+    .conversation-list {
+        max-height: 30%;
+    }
 }
 /* --------------------------------------------------------------------------
    Utility Classes

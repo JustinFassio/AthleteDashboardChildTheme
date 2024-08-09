@@ -66,69 +66,114 @@ function athlete_dashboard_get_full_workout() {
 }
 add_action('wp_ajax_get_full_workout', 'athlete_dashboard_get_full_workout');
 
-/**
- * Generate full workout content
- */
-function athlete_dashboard_generate_full_workout_content($workout) {
-    $content = '<div class="full-workout">';
+        /**
+     * Generate full workout content for the lightbox display.
+     *
+     * @param WP_Post $workout The workout post object.
+     * @return string HTML content for the workout lightbox.
+     */
+    function athlete_dashboard_generate_full_workout_content($workout) {
+        // Start the main container for the full workout
+        $content = '<div class="workout-lightbox-content">';
+        
+            // Add the button container at the top
+            $content .= '<div class="modal-button-container">';
+            $content .= '<button class="print-workout">' . esc_html__('Print Workout', 'athlete-dashboard') . '</button>';
+            $content .= '<button class="workout-lightbox-close">&times;</button>';
+            $content .= '</div>';
 
-    // Add close button at the top
-    $content .= '<button id="close-workout" class="workout-lightbox-close">&times;</button>';
-    
-    // Workout title and date
-    $content .= '<div class="workout-lightbox-header">';
-    $content .= '<h2 class="workout-lightbox-title">' . esc_html($workout->post_title) . '</h2>';
-    $content .= '<p class="workout-lightbox-date">' . esc_html(get_the_date('', $workout)) . '</p>';
-    $content .= '</div>';
-
-    // Convert post content to HTML
-    $workout_content = wpautop(wp_kses_post($workout->post_content));
-    
-    // Apply content filters (this will handle shortcodes and other WordPress content processing)
-    $workout_content = apply_filters('the_content', $workout_content);
-
-    // Add the processed content to our output
-    $content .= '<div class="workout-content">' . $workout_content . '</div>';
-
-    // Detailed exercise list (if available)
-    $exercises = get_post_meta($workout->ID, 'exercises', true);
-    if ($exercises && is_array($exercises)) {
-        $content .= '<h3>' . esc_html__('Exercises', 'athlete-dashboard') . '</h3>';
-        $content .= '<ul class="exercise-list">';
-        foreach ($exercises as $exercise) {
-            $content .= '<li class="exercise-item">';
-            $content .= '<span class="exercise-name">' . esc_html($exercise['name']) . '</span>: ';
-            $content .= '<span class="exercise-details">' . esc_html($exercise['sets']) . ' sets, ' . esc_html($exercise['reps']) . ' reps';
-            if (!empty($exercise['weight'])) {
-                $content .= ', ' . esc_html($exercise['weight']) . ' ' . esc_html($exercise['weight_unit']);
-            }
-            $content .= '</span>';
-            
-            // Add link to exercise demonstration if available
-            if (!empty($exercise['demo_link'])) {
-                $content .= ' <a href="' . esc_url($exercise['demo_link']) . '" target="_blank" class="exercise-demo-link">' . esc_html__('View Demo', 'athlete-dashboard') . '</a>';
-            }
-            
-            $content .= '</li>';
-        }
-        $content .= '</ul>';
-    }
-
-    // Notes or instructions
-    $notes = get_post_meta($workout->ID, 'workout_notes', true);
-    if ($notes) {
-        $content .= '<div class="workout-lightbox-notes">';
-        $content .= '<h3 class="workout-lightbox-notes-label">' . esc_html__('Notes:', 'athlete-dashboard') . '</h3>';
-        $content .= wpautop(wp_kses_post($notes));
+        // Workout title and date section
+        $content .= '<div class="workout-lightbox-header">';
+        $content .= '<h2 class="workout-lightbox-title">' . esc_html($workout->post_title) . '</h2>';
+        $content .= '<p class="workout-lightbox-date">' . esc_html(get_the_date('', $workout)) . '</p>';
         $content .= '</div>';
+    
+
+        // Convert post content to HTML and apply WordPress content filters
+        $workout_content = wpautop(wp_kses_post($workout->post_content));
+        $workout_content = apply_filters('the_content', $workout_content);
+
+        // Add the processed content to our output
+        $content .= '<div class="workout-content">' . $workout_content . '</div>';
+
+        // Detailed exercise list (if available)
+        $exercises = get_post_meta($workout->ID, 'exercises', true);
+        if ($exercises && is_array($exercises)) {
+            $content .= '<h3>' . esc_html__('Exercises', 'athlete-dashboard') . '</h3>';
+            $content .= '<ul class="exercise-list">';
+            foreach ($exercises as $exercise) {
+                $content .= '<li class="exercise-item">';
+                $content .= '<span class="exercise-name">' . esc_html($exercise['name']) . '</span>: ';
+                $content .= '<span class="exercise-details">' . esc_html($exercise['sets']) . ' sets, ' . esc_html($exercise['reps']) . ' reps';
+                if (!empty($exercise['weight'])) {
+                    $content .= ', ' . esc_html($exercise['weight']) . ' ' . esc_html($exercise['weight_unit']);
+                }
+                $content .= '</span>';
+                
+                // Add link to exercise demonstration if available
+                if (!empty($exercise['demo_link'])) {
+                    $content .= ' <a href="' . esc_url($exercise['demo_link']) . '" target="_blank" class="exercise-demo-link">' . esc_html__('View Demo', 'athlete-dashboard') . '</a>';
+                }
+                
+                $content .= '</li>';
+            }
+            $content .= '</ul>';
+        }
+
+        // Notes or instructions section
+        $notes = get_post_meta($workout->ID, 'workout_notes', true);
+        if ($notes) {
+            $content .= '<div class="workout-lightbox-notes">';
+            $content .= '<h3 class="workout-lightbox-subtitle">' . esc_html__('Notes:', 'athlete-dashboard') . '</h3>';
+            $content .= wpautop(wp_kses_post($notes));
+            $content .= '</div>';
+        }
+    
+        $content .= '</div>'; // Close workout-lightbox-content
+    
+        return $content;
     }
 
-    // Add "Print Workout" button with onclick event
-    $content .= '<button class="print-workout" onclick="window.print();">' . esc_html__('Print Workout', 'athlete-dashboard') . '</button>';
+/**
+ * AJAX handlers for various progress types
+ */
+function athlete_dashboard_ajax_get_user_progress($progress_type) {
+    athlete_dashboard_verify_ajax_request();
+    
+    $progress = athlete_dashboard_get_progress_chart_data($progress_type);
+    wp_send_json_success($progress);
+}
 
-    $content .= '</div>';
+function athlete_dashboard_ajax_handle_progress_submission($progress_type) {
+    athlete_dashboard_verify_ajax_request();
+    
+    $weight = isset($_POST[$progress_type . '_weight']) ? floatval($_POST[$progress_type . '_weight']) : 0;
+    $unit = isset($_POST[$progress_type . '_weight_unit']) ? sanitize_text_field($_POST[$progress_type . '_weight_unit']) : 'kg';
+    $date = isset($_POST['date']) ? sanitize_text_field($_POST['date']) : current_time('mysql');
+    
+    $user_id = get_current_user_id();
+    $result = athlete_dashboard_handle_progress_submission($user_id, $weight, $unit, $date, $progress_type);
+    
+    if ($result) {
+        $updated_progress = athlete_dashboard_get_progress_chart_data($progress_type);
+        wp_send_json_success([
+            'message' => sprintf(__('%s progress updated successfully', 'athlete-dashboard'), ucfirst($progress_type)),
+            'data' => $updated_progress
+        ]);
+    } else {
+        wp_send_json_error(['message' => sprintf(__('Failed to update %s progress', 'athlete-dashboard'), $progress_type)]);
+    }
+}
 
-    return $content;
+// Add actions for each progress type
+$progress_types = ['weight', 'squat', 'bench_press', 'deadlift'];
+foreach ($progress_types as $type) {
+    add_action("wp_ajax_athlete_dashboard_get_user_{$type}_progress", function() use ($type) {
+        athlete_dashboard_ajax_get_user_progress($type);
+    });
+    add_action("wp_ajax_athlete_dashboard_handle_{$type}_progress_submission", function() use ($type) {
+        athlete_dashboard_ajax_handle_progress_submission($type);
+    });
 }
 
 /**

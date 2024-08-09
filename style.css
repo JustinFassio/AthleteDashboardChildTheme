@@ -20,8 +20,8 @@ Version: 2.3.0
 :root {
     --color-primary: #ddff0e;
     --color-primary-dark: #b8d40c;
-	--color-secondary: #f72525; /* Vivid Red */
-    --color-tertiary: #3a0ca3;
+	--color-secondary: #e60000; /* Darker red */
+    --color-tertiary: #FF8C00; /* Bright orange */
     --color-background: #2a2d2e; /* Porsche Chalk Grey */
     --color-background-light: #3c3f41; /* Lighter shade of Chalk Grey */
     --color-text: #ffffff;
@@ -65,38 +65,47 @@ body {
 /* ==========================================================================
    Typography
    ========================================================================== */
-.athlete-dashboard h1,
-.athlete-dashboard h2,
-.athlete-dashboard h3,
-.athlete-dashboard h4,
-.athlete-dashboard h5,
+/* Update the general heading styles */
+.athlete-dashboard h1, 
+.athlete-dashboard h2, 
+.athlete-dashboard h3, 
+.athlete-dashboard h4, 
+.athlete-dashboard h5, 
 .athlete-dashboard h6 {
     font-family: var(--font-heading);
-    color: var(--color-primary);
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
 }
 
+/* Set specific colors for each heading level */
 .athlete-dashboard h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--color-primary);
 }
 
 .athlete-dashboard h2 {
-    font-size: 2rem;
+    color: var(--color-secondary);
 }
 
 .athlete-dashboard h3 {
-    font-size: 1.75rem;
+    color: var(--color-primary-dark);
 }
 
-.athlete-dashboard p {
-    font-size: 1rem;
-    line-height: 1.6;
+.athlete-dashboard h4,
+.athlete-dashboard h5,
+.athlete-dashboard h6 {
+    color: var(--color-text);
+}
+
+/* Specific styles for the workout lightbox */
+.athlete-dashboard .workout-lightbox-content .workout-lightbox-title {
+    color: var(--color-secondary);
+}
+
+.athlete-dashboard .workout-lightbox-content .workout-lightbox-subtitle {
+    color: var(--color-primary-dark);
+}
+
+.athlete-dashboard .workout-lightbox-content .workout-lightbox-date {
+    color: var(--color-text-muted);
 }
 
 /* ==========================================================================
@@ -434,36 +443,3 @@ body {
     background: var(--color-primary-dark);
 }
 
-/* ==========================================================================
-   Workout Modal Styles
-   ========================================================================== */
-   .workout-modal-content h1 {
-    color: var(--color-primary);
-}
-
-.workout-modal-content h2 {
-    color: var(--color-secondary);
-}
-
-.workout-modal-content h3 {
-    color: var(--color-primary-dark);
-}
-
-.workout-lightbox-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background-color: var(--color-primary);
-    color: var(--color-background);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-sm);
-    cursor: pointer;
-    font-size: 1.5rem;
-    line-height: 1;
-    z-index: 9999;
-}
-
-.workout-lightbox-close:hover {
-    background-color: var(--color-primary-dark);
-}
