@@ -21,6 +21,9 @@ require_once get_stylesheet_directory() . '/functions/user-data.php';
 require_once get_stylesheet_directory() . '/functions/utilities.php';
 require_once get_stylesheet_directory() . '/functions/messaging-functions.php';
 require_once get_stylesheet_directory() . '/functions/database-setup.php';
+require_once get_stylesheet_directory() . '/functions/athlete-dashboard-functions.php';
+require_once get_stylesheet_directory() . '/vendor/autoload.php';
+
 
 
 // Include the existing data-processing.php

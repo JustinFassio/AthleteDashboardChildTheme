@@ -136,3 +136,12 @@ function enqueue_stripe_js() {
     wp_enqueue_script('stripe-js', 'https://js.stripe.com/v3/buy-button.js', array(), null, true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_stripe_js');
+
+/**
+ * Enqueue reCAPTCHA v3 script
+ */
+function enqueue_recaptcha_v3_script() {
+    $recaptcha_site_key = '6Lc1Ly0qAAAAAF37K-Y8vkcCJQsiPrGADWD4T137';
+    wp_enqueue_script('recaptcha-v3', "https://www.google.com/recaptcha/api.js?render=$recaptcha_site_key", array(), null, true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_recaptcha_v3_script');
